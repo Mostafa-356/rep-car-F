@@ -1,0 +1,7 @@
+{
+  "name": "Car Maintenance Assistant",
+  "description": "An AI-powered web application to help you diagnose car problems, get maintenance schedules, and find DIY repair guides. Using the power of Gemini, this tool provides intelligent assistance for all your car care needs.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

@@ -1,13 +1,15 @@
 
 import { GoogleGenAI, GenerateContentResponse, Type } from "@google/genai";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.API_KEY || process.env.GEMINI_API_KEY;
 
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set");
-}
+const getAI = () => {
+  if (!API_KEY) {
+    throw new Error("Gemini AI is not configured. Add GEMINI_API_KEY to enable AI features.");
+  }
 
-const ai = new GoogleGenAI({ apiKey: API_KEY });
+  return new GoogleGenAI({ apiKey: API_KEY });
+};
 
 const fileToGenerativePart = async (file: File) => {
   const base64EncodedDataPromise = new Promise<string>((resolve) => {
@@ -35,7 +37,7 @@ export const getDiagnostics = async (problemDescription: string, image?: File): 
     parts.push(imagePart);
   }
 
-  return ai.models.generateContent({
+  return getAI().models.generateContent({
     model,
     contents: { parts },
     config: {
@@ -71,7 +73,7 @@ export const generateMaintenanceSchedule = (make: string, model: string, year: n
         Generate a maintenance schedule for a ${year} ${make} ${model} with ${mileage} miles.
     `;
 
-    return ai.models.generateContent({
+    return getAI().models.generateContent({
         model: modelName,
         contents: prompt,
         config: {
@@ -104,13 +106,13 @@ export const getDIYGuide = (topic: string): Promise<GenerateContentResponse> => 
         Provide a detailed, step-by-step DIY guide for the following car maintenance task: "${topic}".
         Include a list of necessary tools and safety precautions. Format the response as a single markdown string.
     `;
-    return ai.models.generateContent({ model, contents: prompt });
+    return getAI().models.generateContent({ model, contents: prompt });
 };
 
 export const findCarParts = (query: string): Promise<GenerateContentResponse> => {
     const model = 'gemini-2.5-flash';
     const prompt = `Based on the user's query "${query}", find suitable car parts. Provide a summary of the best options and links to where they can be purchased. Use Google Search to find up-to-date information and pricing. Format the response in markdown.`;
-    return ai.models.generateContent({
+    return getAI().models.generateContent({
        model,
        contents: prompt,
        config: {
@@ -122,7 +124,7 @@ export const findCarParts = (query: string): Promise<GenerateContentResponse> =>
 export const findShops = (query: string, location: { latitude: number, longitude: number }): Promise<GenerateContentResponse> => {
     const model = 'gemini-2.5-flash';
     const prompt = `Find nearby car shops based on the user's query: "${query}". Provide a summary of the best options, including their specialties and contact information if available. Format the response in markdown.`;
-    return ai.models.generateContent({
+    return getAI().models.generateContent({
         model,
         contents: prompt,
         config: {

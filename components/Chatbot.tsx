@@ -15,11 +15,14 @@ const Chatbot: React.FC = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!process.env.API_KEY) {
-            console.error("API_KEY not found for chatbot.");
+        const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+
+        if (!apiKey) {
+            setMessages([{ role: 'model', text: 'The AI assistant is currently unavailable because Gemini is not configured.' }]);
             return;
         }
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+        const ai = new GoogleGenAI({ apiKey });
         chatRef.current = ai.chats.create({
             model: 'gemini-2.5-flash-lite',
             config: {

@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
         {mobileOpen && (
             <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
                 <button type="button" className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" onClick={onClose} aria-label="Close navigation" />
-                <aside className="sidebar-surface absolute bottom-0 left-0 top-0 z-10 w-[min(21rem,calc(100vw-1.5rem))] border-r sidebar-border shadow-[20px_0_50px_rgba(0,0,0,0.25)]">
+                <aside className="sidebar-surface absolute bottom-0 left-0 top-0 z-10 w-full border-r sidebar-border shadow-[20px_0_50px_rgba(0,0,0,0.25)]">
                     <SidebarContent mobile onNavigate={onClose} />
                 </aside>
             </div>

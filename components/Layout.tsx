@@ -1,11 +1,22 @@
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import ScrollToTopButton from './ScrollToTopButton';
 import Chatbot from './Chatbot';
 import { styles } from '../styles';
+import ThemeToggle from './ThemeToggle';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    localStorage.setItem('auto-ai-theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
+  const toggleTheme = useCallback(() => setIsDark((current) => !current), []);
+
   return (
     <div className="app-shell flex min-h-screen">
       <Sidebar />
@@ -16,6 +27,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <p className="mt-1 text-sm font-medium text-foreground">Vehicle care, simplified</p>
           </div>
           <div className="flex items-center gap-3">
+            <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
             <div className="hidden h-10 items-center gap-2 rounded-xl border border-border bg-card px-3 text-xs text-muted-foreground sm:flex">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
               AI services ready

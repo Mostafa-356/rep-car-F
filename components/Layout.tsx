@@ -75,7 +75,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </main>
       </div>
       <ScrollToTopButton />
-      <Chatbot />
+      <Chatbot isNavigationOpen={isMobileNavOpen} />
     </div>
   );
 };

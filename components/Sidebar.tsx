@@ -36,7 +36,10 @@ const SidebarContent: React.FC<{ onNavigate?: () => void; mobile?: boolean }> = 
               )}
             </div>
 
-            <div className="mt-8 flex flex-1 flex-col justify-between sm:mt-12">
+            <div className={cx(
+              'flex flex-col sm:mt-12',
+              mobile ? 'mt-8 gap-8' : 'mt-8 flex-1 justify-between',
+            )}>
                 <nav>
                     <p className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">Workspace</p>
                     {navigationItems.map((link) => (
@@ -58,6 +61,17 @@ const SidebarContent: React.FC<{ onNavigate?: () => void; mobile?: boolean }> = 
                         <span className="h-2 w-2 rounded-full bg-primary" /> Assistant online
                     </div>
                 </div>
+                {mobile && (
+                  <NavLink
+                    to="/profile"
+                    onClick={onNavigate}
+                    className="flex min-h-11 items-center gap-3 rounded-xl border sidebar-border bg-white/5 px-3 py-3 text-sm font-medium text-white/75 transition hover:bg-white/10 hover:text-white"
+                  >
+                    <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white/10 text-[10px] font-bold">AR</span>
+                    <span>Profile settings</span>
+                    <span className="ml-auto text-white/35">↗</span>
+                  </NavLink>
+                )}
             </div>
         </div>
     );
@@ -84,9 +98,9 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
             <SidebarContent />
         </aside>
         {mobileOpen && (
-            <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+            <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
                 <button type="button" className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" onClick={onClose} aria-label="Close navigation" />
-                <aside className="sidebar-surface absolute bottom-0 left-0 top-0 w-[min(21rem,calc(100vw-1.5rem))] border-r sidebar-border shadow-[20px_0_50px_rgba(0,0,0,0.25)]">
+                <aside className="sidebar-surface absolute bottom-0 left-0 top-0 z-10 w-[min(21rem,calc(100vw-1.5rem))] border-r sidebar-border shadow-[20px_0_50px_rgba(0,0,0,0.25)]">
                     <SidebarContent mobile onNavigate={onClose} />
                 </aside>
             </div>

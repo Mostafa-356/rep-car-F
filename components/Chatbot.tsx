@@ -7,7 +7,11 @@ import LoadingSpinner from './LoadingSpinner';
 import { cx, styles } from '../styles';
 import { createChatSession } from '../features/ai/api/geminiService';
 
-const Chatbot: React.FC = () => {
+interface ChatbotProps {
+    isNavigationOpen?: boolean;
+}
+
+const Chatbot: React.FC<ChatbotProps> = ({ isNavigationOpen = false }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
@@ -120,15 +124,19 @@ const Chatbot: React.FC = () => {
 
     return (
         <>
-            {isOpen && <ChatWindow />}
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,105,77,0.3)] transition-transform duration-300 hover:-translate-y-1"
-              aria-label="Toggle chat"
-            >
-              {isOpen ? ICONS.close : ICONS.chat}
-            </button>
+            {!isNavigationOpen && (
+              <>
+                {isOpen && <ChatWindow />}
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,105,77,0.3)] transition-transform duration-300 hover:-translate-y-1"
+                  aria-label="Toggle chat"
+                >
+                  {isOpen ? ICONS.close : ICONS.chat}
+                </button>
+              </>
+            )}
         </>
     );
 };

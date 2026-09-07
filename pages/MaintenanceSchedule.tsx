@@ -54,7 +54,7 @@ const MaintenanceSchedule: React.FC = () => {
           <CardTitle>Vehicle information</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             <Input placeholder="Make (e.g., Toyota)" value={make} onChange={e => setMake(e.target.value)} disabled={isLoading} />
             <Input placeholder="Model (e.g., Camry)" value={model} onChange={e => setModel(e.target.value)} disabled={isLoading} />
             <Input type="number" placeholder="Year (e.g., 2020)" value={year} onChange={e => setYear(e.target.value)} disabled={isLoading} />
@@ -82,7 +82,7 @@ const MaintenanceSchedule: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-border">
+                <table className="min-w-[700px] divide-y divide-border">
                     <thead className="bg-secondary/60">
                         <tr>
                             <th scope="col" className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Task</th>

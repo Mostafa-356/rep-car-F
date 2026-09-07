@@ -52,9 +52,9 @@ const Dashboard: React.FC = () => {
           <p className="mt-4 max-w-lg text-sm leading-6 text-white/55 sm:text-base">
             Get intelligent, data-driven insights to keep your car running smoothly, from the next service to the unexpected warning light.
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Button variant="primary" onClick={() => window.location.hash = '#/diagnostics'}>Start a diagnosis <span aria-hidden="true">↗</span></Button>
-            <Button variant="secondary" className="border-white/15 bg-white/10 text-white hover:bg-white/15">Add vehicle</Button>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Button variant="primary" className="w-full sm:w-auto" onClick={() => window.location.hash = '#/diagnostics'}>Start a diagnosis <span aria-hidden="true">↗</span></Button>
+            <Button variant="secondary" className="w-full border-white/15 bg-white/10 text-white hover:bg-white/15 sm:w-auto">Add vehicle</Button>
           </div>
         </div>
         <div className="dot-grid absolute -right-10 -top-10 h-72 w-72 rounded-full opacity-40" />
@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
           ['Next service', '1,240 mi away', 'bg-orange-50 text-orange-700'],
           ['Saved guides', '12 resources', 'bg-violet-50 text-violet-700'],
         ].map(([label, value, badge]) => (
-          <div key={label} className={`${styles.card} flex items-center justify-between p-5`}>
+          <div key={label} className={`${styles.card} flex items-start justify-between gap-3 p-5 sm:items-center`}>
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{label}</p>
               <p className="mt-2 text-lg font-semibold tracking-[-0.03em]">{value}</p>

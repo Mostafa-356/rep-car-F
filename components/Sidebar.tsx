@@ -13,12 +13,17 @@ const navigationLinks = [
   { to: '/shops', icon: ICONS.shops, label: 'Find Shops' },
 ];
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+    mobileOpen: boolean;
+    onClose: () => void;
+}
+
+const SidebarContent: React.FC<{ onNavigate?: () => void }> = ({ onNavigate }) => {
     const linkClasses = "group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-white/55 transition hover:bg-white/10 hover:text-white";
     const activeLinkClasses = "bg-primary text-white shadow-[0_10px_24px_rgba(255,105,77,0.2)] hover:bg-primary hover:text-white";
 
     return (
-        <aside className="sticky top-0 hidden h-screen w-[260px] shrink-0 flex-col border-r border-white/10 bg-[#171717] px-5 py-6 text-white lg:flex">
+        <div className="flex h-full flex-col px-5 py-6 text-white">
             <div className="flex items-center gap-3 px-2">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">{ICONS.car}</span>
                 <div>
@@ -34,6 +39,7 @@ const Sidebar: React.FC = () => {
                         <NavLink
                             key={link.to}
                             to={link.to}
+                            onClick={onNavigate}
                             className={({ isActive }) => cx(linkClasses, isActive && activeLinkClasses)}
                         >
                             <span className="flex h-5 w-5 items-center justify-center [&>svg]:h-[18px] [&>svg]:w-[18px]">{link.icon}</span>
@@ -49,8 +55,24 @@ const Sidebar: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </aside>
+        </div>
     );
 };
+
+const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => (
+    <>
+        <aside className="sticky top-0 hidden h-screen w-[260px] shrink-0 border-r border-white/10 bg-[#171717] lg:flex">
+            <SidebarContent />
+        </aside>
+        {mobileOpen && (
+            <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+                <button type="button" className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" onClick={onClose} aria-label="Close navigation" />
+                <aside className="absolute bottom-0 left-0 top-16 w-[min(19rem,calc(100vw-3rem))] border-r border-white/10 bg-[#171717] shadow-[20px_0_50px_rgba(0,0,0,0.2)] sm:top-20">
+                    <SidebarContent onNavigate={onClose} />
+                </aside>
+            </div>
+        )}
+    </>
+);
 
 export default Sidebar;

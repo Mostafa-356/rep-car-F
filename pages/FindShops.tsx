@@ -91,7 +91,7 @@ const FindShops: React.FC = () => {
               disabled={isLoading || !location}
               className="flex-grow"
             />
-            <Button type="submit" disabled={isLoading || !location}>
+            <Button type="submit" disabled={isLoading || !location} className="w-full sm:w-auto">
               {isLoading ? <LoadingSpinner /> : 'Search Nearby'}
             </Button>
           </form>

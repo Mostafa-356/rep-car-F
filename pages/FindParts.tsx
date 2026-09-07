@@ -58,7 +58,7 @@ const FindParts: React.FC = () => {
               disabled={isLoading}
               className="flex-grow"
             />
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? <LoadingSpinner /> : 'Search'}
             </Button>
           </form>

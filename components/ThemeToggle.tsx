@@ -11,7 +11,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDark, onToggle }) => (
     type="button"
     onClick={onToggle}
     className={cx(
-      'group relative flex h-11 w-[5.25rem] items-center rounded-full border border-border bg-card p-1 shadow-sm transition-colors duration-300 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20',
+      'group relative flex h-11 w-11 items-center rounded-full border border-border bg-card p-1 shadow-sm transition-colors duration-300 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 sm:w-[5.25rem]',
       isDark && 'bg-secondary',
     )}
     aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
@@ -21,7 +21,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDark, onToggle }) => (
     <span
       className={cx(
         'absolute left-1 flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
-        isDark && 'translate-x-10',
+        isDark && 'translate-x-1 sm:translate-x-10',
       )}
     >
       <svg
@@ -50,7 +50,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDark, onToggle }) => (
         <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
       </svg>
     </span>
-    <span className="ml-auto mr-2 text-muted-foreground transition-opacity duration-300 group-hover:text-primary" aria-hidden="true">
+    <span className="ml-auto mr-2 hidden text-muted-foreground transition-opacity duration-300 group-hover:text-primary sm:block" aria-hidden="true">
       {isDark ? 'Dark' : 'Light'}
     </span>
   </button>

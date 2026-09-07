@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useCallback, useContext } from 'react';
+import React, { createContext, useState, useCallback, useContext, useRef } from 'react';
 import { Notification as NotificationType, NotificationType as TNotificationType } from '../types';
 import Notification from '../components/Notification';
 
@@ -11,9 +11,10 @@ const NotificationContext = createContext<NotificationContextType | undefined>(u
 
 export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const notificationSequence = useRef(0);
 
   const addNotification = useCallback((message: string, type: TNotificationType) => {
-    const id = Date.now();
+    const id = Date.now() + notificationSequence.current++;
     setNotifications(prev => [...prev, { id, message, type }]);
     setTimeout(() => {
       setNotifications(prev => prev.filter(n => n.id !== id));

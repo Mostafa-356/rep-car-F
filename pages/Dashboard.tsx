@@ -43,7 +43,7 @@ const features = [
 const Dashboard: React.FC = () => {
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-[1.75rem] bg-[#171717] p-7 text-white shadow-[0_18px_50px_rgba(23,23,23,0.14)] sm:p-10">
+      <section className="sidebar-surface relative overflow-hidden rounded-[1.75rem] p-6 text-white shadow-[0_18px_50px_rgba(23,23,23,0.14)] sm:p-10">
         <div className="relative z-10 max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/75">
             <span className="h-2 w-2 rounded-full bg-primary" /> Your vehicle workspace
@@ -71,9 +71,9 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {[
-          ['Vehicle status', 'Ready for the road', 'bg-emerald-50 text-emerald-700'],
-          ['Next service', '1,240 mi away', 'bg-orange-50 text-orange-700'],
-          ['Saved guides', '12 resources', 'bg-violet-50 text-violet-700'],
+           ['Vehicle status', 'Ready for the road', 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'],
+           ['Next service', '1,240 mi away', 'bg-orange-500/10 text-orange-700 dark:text-orange-300'],
+           ['Saved guides', '12 resources', 'bg-violet-500/10 text-violet-700 dark:text-violet-300'],
         ].map(([label, value, badge]) => (
           <div key={label} className={`${styles.card} flex items-start justify-between gap-3 p-5 sm:items-center`}>
             <div>

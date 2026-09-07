@@ -2,14 +2,14 @@ export const cx = (...classes: Array<string | false | null | undefined>) =>
   classes.filter(Boolean).join(' ');
 
 export const styles = {
-  page: 'space-y-8',
-  pageHeader: 'flex flex-col gap-2',
-  pageEyebrow: 'text-xs font-semibold uppercase tracking-[0.18em] text-primary',
-  pageTitle: 'text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl',
+  page: 'space-y-6 sm:space-y-8',
+  pageHeader: 'relative flex flex-col gap-3 overflow-hidden rounded-[1.5rem] border border-border/70 bg-card px-5 py-6 shadow-[0_10px_30px_rgba(23,23,23,0.04)] sm:px-8 sm:py-8',
+  pageEyebrow: 'text-[11px] font-bold uppercase tracking-[0.18em] text-primary',
+  pageTitle: 'max-w-3xl text-3xl font-semibold leading-tight tracking-[-0.045em] text-foreground sm:text-4xl lg:text-[2.7rem]',
   pageDescription: 'max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base',
-  card: 'rounded-[1.5rem] border border-border/80 bg-card text-card-foreground shadow-[0_14px_40px_rgba(23,23,23,0.05)]',
-  cardHeader: 'flex flex-col gap-2 border-b border-border/70 p-6 sm:p-7',
-  cardContent: 'p-6 sm:p-7',
+  card: 'rounded-[1.35rem] border border-border/80 bg-card text-card-foreground shadow-[0_14px_40px_rgba(23,23,23,0.05)] transition-colors duration-300',
+  cardHeader: 'flex flex-col gap-2 border-b border-border/70 p-5 sm:p-7',
+  cardContent: 'p-5 sm:p-7',
   cardTitle: 'text-lg font-semibold tracking-[-0.025em] text-foreground sm:text-xl',
   cardDescription: 'text-sm leading-6 text-muted-foreground',
   label: 'mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground',

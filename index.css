@@ -22,6 +22,12 @@
   --app-popover-foreground: #151515;
   --app-card: #ffffff;
   --app-card-foreground: #151515;
+  --app-sidebar: #20201e;
+  --app-sidebar-foreground: #ffffff;
+  --app-sidebar-muted: rgba(255, 255, 255, 0.56);
+  --app-sidebar-border: rgba(255, 255, 255, 0.11);
+  --app-scrollbar-thumb: #c5c5bf;
+  --app-scrollbar-thumb-hover: #a8a8a0;
   font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color-scheme: light;
   font-synthesis: none;
@@ -48,6 +54,12 @@
   --app-popover-foreground: #f7f7f5;
   --app-card: #1d1d1b;
   --app-card-foreground: #f7f7f5;
+  --app-sidebar: #10100f;
+  --app-sidebar-foreground: #f7f7f5;
+  --app-sidebar-muted: rgba(247, 247, 245, 0.54);
+  --app-sidebar-border: rgba(247, 247, 245, 0.12);
+  --app-scrollbar-thumb: #4f4f49;
+  --app-scrollbar-thumb-hover: #6c6c64;
   color-scheme: dark;
 }
 
@@ -107,14 +119,25 @@ textarea {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: color-mix(in srgb, var(--app-background) 72%, transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   border-radius: 999px;
-  background: #d8d8d3;
+  background: var(--app-scrollbar-thumb);
   background-clip: padding-box;
+  transition: background 180ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--app-scrollbar-thumb-hover);
+  background-clip: padding-box;
+}
+
+* {
+  scrollbar-color: var(--app-scrollbar-thumb) transparent;
+  scrollbar-width: thin;
 }
 
 .app-shell {
@@ -122,6 +145,25 @@ textarea {
     radial-gradient(circle at 86% 0%, rgba(255, 105, 77, 0.08), transparent 28rem),
     var(--app-background);
   transition: background-color 300ms ease;
+}
+
+.sidebar-surface {
+  background:
+    linear-gradient(155deg, color-mix(in srgb, var(--app-primary) 10%, transparent), transparent 38%),
+    var(--app-sidebar);
+  color: var(--app-sidebar-foreground);
+}
+
+.sidebar-muted {
+  color: var(--app-sidebar-muted);
+}
+
+.sidebar-border {
+  border-color: var(--app-sidebar-border);
+}
+
+.safe-area-bottom {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
 }
 
 .dark .app-shell {

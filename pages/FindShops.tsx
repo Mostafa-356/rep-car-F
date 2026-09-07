@@ -95,7 +95,7 @@ const FindShops: React.FC = () => {
               {isLoading ? <LoadingSpinner /> : 'Search Nearby'}
             </Button>
           </form>
-            {locationError && <p className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{locationError}</p>}
+            {locationError && <p className="mt-3 rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">{locationError}</p>}
             {!location && !locationError && <p className="mt-3 text-sm text-muted-foreground">Getting your location...</p>}
         </CardContent>
       </Card>

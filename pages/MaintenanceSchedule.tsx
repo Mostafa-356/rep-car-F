@@ -8,6 +8,8 @@ import { useNotifications } from '../context/NotificationContext';
 import { MaintenanceScheduleResult, NotificationType } from '../types';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SkeletonLoader from '../components/SkeletonLoader';
+import PageHeader from '../components/PageHeader';
+import { styles } from '../styles';
 
 const MaintenanceSchedule: React.FC = () => {
   const [make, setMake] = useState('');
@@ -41,17 +43,18 @@ const MaintenanceSchedule: React.FC = () => {
   }, [make, model, year, mileage, addNotification]);
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">Maintenance Schedule</h1>
-      <p className="text-gray-600 mb-8">
-        Enter your vehicle's details to generate a recommended maintenance schedule.
-      </p>
-      <Card className="mb-8">
+    <div className={styles.page}>
+      <PageHeader
+        eyebrow="Stay ahead"
+        title="Build a maintenance rhythm for your car."
+        description="Enter your vehicle's details to generate a recommended schedule tailored to its age and mileage."
+      />
+      <Card>
         <CardHeader>
-            <CardTitle>Vehicle Information</CardTitle>
+          <CardTitle>Vehicle information</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             <Input placeholder="Make (e.g., Toyota)" value={make} onChange={e => setMake(e.target.value)} disabled={isLoading} />
             <Input placeholder="Model (e.g., Camry)" value={model} onChange={e => setModel(e.target.value)} disabled={isLoading} />
             <Input type="number" placeholder="Year (e.g., 2020)" value={year} onChange={e => setYear(e.target.value)} disabled={isLoading} />
@@ -79,20 +82,20 @@ const MaintenanceSchedule: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                <table className="min-w-[700px] divide-y divide-border">
+                    <thead className="bg-secondary/60">
                         <tr>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recommended Interval (Miles)</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                            <th scope="col" className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Task</th>
+                            <th scope="col" className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Interval</th>
+                            <th scope="col" className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Description</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="divide-y divide-border bg-card">
                         {schedule.schedule.map((item, index) => (
                             <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.task_name}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.interval_miles.toLocaleString()}</td>
-                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">{item.description}</td>
+                                <td className="whitespace-nowrap px-5 py-4 text-sm font-semibold text-foreground">{item.task_name}</td>
+                                <td className="whitespace-nowrap px-5 py-4 text-sm text-muted-foreground">{item.interval_miles.toLocaleString()} mi</td>
+                                <td className="whitespace-normal px-5 py-4 text-sm leading-6 text-muted-foreground">{item.description}</td>
                             </tr>
                         ))}
                     </tbody>

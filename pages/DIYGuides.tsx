@@ -9,6 +9,8 @@ import { NotificationType } from '../types';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SkeletonLoader from '../components/SkeletonLoader';
 import { marked } from 'marked';
+import PageHeader from '../components/PageHeader';
+import { styles } from '../styles';
 
 const DIYGuides: React.FC = () => {
   const [topic, setTopic] = useState('');
@@ -39,14 +41,15 @@ const DIYGuides: React.FC = () => {
   }, [topic, addNotification]);
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">DIY Repair Guides</h1>
-      <p className="text-gray-600 mb-8">
-        Looking to get your hands dirty? Search for a step-by-step guide for your next project.
-      </p>
-      <Card className="mb-8">
+    <div className={styles.page}>
+      <PageHeader
+        eyebrow="Learn by doing"
+        title="DIY guides for the jobs you can own."
+        description="Search for a step-by-step guide for your next project, with tools and safety notes included."
+      />
+      <Card>
         <CardContent>
-          <form onSubmit={handleSubmit} className="flex gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
             <Input
               placeholder="e.g., How to change the oil on a 2020 Honda Civic"
               value={topic}
@@ -54,7 +57,7 @@ const DIYGuides: React.FC = () => {
               disabled={isLoading}
               className="flex-grow"
             />
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? <LoadingSpinner /> : 'Get Guide'}
             </Button>
           </form>
@@ -82,7 +85,7 @@ const DIYGuides: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div
-              className="prose max-w-none"
+              className={styles.prose}
               dangerouslySetInnerHTML={{ __html: guide }}
             />
           </CardContent>

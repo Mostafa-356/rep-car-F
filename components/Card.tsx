@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { cx, styles } from '../styles';
 
 interface CardProps {
   children: React.ReactNode;
@@ -8,7 +9,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ children, className }) => {
   return (
-    <div className={`bg-card text-card-foreground rounded-lg border bg-white shadow-sm ${className || ''}`}>
+    <div className={cx(styles.card, className)}>
       {children}
     </div>
   );
@@ -20,7 +21,7 @@ interface CardContentProps {
 }
 
 export const CardContent: React.FC<CardContentProps> = ({ children, className }) => {
-    return <div className={`p-6 ${className || ''}`}>{children}</div>
+    return <div className={cx(styles.cardContent, className)}>{children}</div>
 }
 
 interface CardHeaderProps {
@@ -29,7 +30,7 @@ interface CardHeaderProps {
 }
 
 export const CardHeader: React.FC<CardHeaderProps> = ({ children, className }) => {
-    return <div className={`flex flex-col space-y-1.5 p-6 ${className || ''}`}>{children}</div>
+    return <div className={cx(styles.cardHeader, className)}>{children}</div>
 }
 
 interface CardTitleProps {
@@ -37,7 +38,7 @@ interface CardTitleProps {
     className?: string;
 }
 export const CardTitle: React.FC<CardTitleProps> = ({ children, className }) => {
-    return <h3 className={`text-2xl font-semibold leading-none tracking-tight ${className || ''}`}>{children}</h3>
+    return <h3 className={cx(styles.cardTitle, className)}>{children}</h3>
 }
 
 interface CardDescriptionProps {
@@ -45,7 +46,7 @@ interface CardDescriptionProps {
     className?: string;
 }
 export const CardDescription: React.FC<CardDescriptionProps> = ({ children, className }) => {
-    return <p className={`text-sm text-muted-foreground ${className || ''}`}>{children}</p>
+    return <p className={cx(styles.cardDescription, className)}>{children}</p>
 }
 
 interface CardFooterProps {
@@ -53,7 +54,7 @@ interface CardFooterProps {
     className?: string;
 }
 export const CardFooter: React.FC<CardFooterProps> = ({ children, className }) => {
-    return <div className={`flex items-center p-6 pt-0 ${className || ''}`}>{children}</div>
+    return <div className={cx('flex items-center px-6 pb-6 sm:px-7 sm:pb-7', className)}>{children}</div>
 }
 
 

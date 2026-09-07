@@ -5,6 +5,7 @@ import { ICONS } from '../constants';
 import { ChatMessage } from '../types';
 import { marked } from 'marked';
 import LoadingSpinner from './LoadingSpinner';
+import { cx, styles } from '../styles';
 
 const Chatbot: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -75,26 +76,29 @@ const Chatbot: React.FC = () => {
     };
     
     const ChatWindow = () => (
-        <div className="fixed bottom-24 right-5 w-80 h-[28rem] bg-white rounded-lg shadow-2xl flex flex-col transition-all duration-300 z-50">
-            <header className="bg-gray-800 text-white p-4 flex justify-between items-center rounded-t-lg">
-                <h3 className="font-bold text-lg">AI Assistant</h3>
-                <button onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-white">
+        <div className="fixed bottom-24 right-4 z-50 flex h-[min(34rem,calc(100vh-8rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_24px_70px_rgba(23,23,23,0.18)] sm:right-6">
+            <header className="flex items-center justify-between bg-[#171717] p-5 text-white">
+                <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">Always on call</p>
+                    <h3 className="mt-1 text-base font-semibold">AI Assistant</h3>
+                </div>
+                <button onClick={() => setIsOpen(false)} className="rounded-lg p-2 text-white/55 transition hover:bg-white/10 hover:text-white">
                     {ICONS.close}
                 </button>
             </header>
-            <main className="flex-1 p-4 overflow-y-auto bg-gray-50">
+            <main className="flex-1 overflow-y-auto bg-background p-4">
                 <div className="space-y-4">
                     {messages.map((msg, index) => (
-                         <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                         <div key={index} className={cx('flex', msg.role === 'user' ? 'justify-end' : 'justify-start')}>
                             <div
-                                className={`rounded-lg px-4 py-2 max-w-xs ${msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                className={cx('max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6', msg.role === 'user' ? 'rounded-br-md bg-primary text-white' : 'rounded-bl-md bg-secondary text-foreground')}
                                 dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) as string }}
                             />
                         </div>
                     ))}
                     {isLoading && messages[messages.length-1].role === 'user' && (
                          <div className="flex justify-start">
-                             <div className="rounded-lg px-4 py-2 max-w-xs bg-gray-200 text-gray-800">
+                              <div className="max-w-xs rounded-2xl rounded-bl-md bg-secondary px-4 py-3 text-foreground">
                                 <LoadingSpinner />
                             </div>
                         </div>
@@ -102,17 +106,17 @@ const Chatbot: React.FC = () => {
                     <div ref={messagesEndRef} />
                 </div>
             </main>
-            <footer className="p-2 border-t">
+            <footer className="border-t border-border p-3">
                 <form onSubmit={handleSendMessage} className="flex items-center">
                     <input
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Ask something..."
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                        className={cx(styles.field, 'min-h-11 py-2')}
                         disabled={isLoading}
                     />
-                    <button type="submit" className="ml-2 p-2 bg-primary text-white rounded-md hover:bg-primary/90 disabled:bg-primary/50" disabled={isLoading}>
+                    <button type="submit" className={cx(styles.button.base, styles.button.primary, styles.button.icon, 'ml-2')} disabled={isLoading} aria-label="Send message">
                        {ICONS.send}
                     </button>
                 </form>
@@ -127,7 +131,7 @@ const Chatbot: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="fixed bottom-5 right-5 z-40 p-3 rounded-full bg-primary text-primary-foreground shadow-lg transition-transform duration-300 hover:scale-110"
+              className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,105,77,0.3)] transition-transform duration-300 hover:-translate-y-1"
               aria-label="Toggle chat"
             >
               {isOpen ? ICONS.close : ICONS.chat}

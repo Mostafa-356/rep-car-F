@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { cx, styles } from '../styles';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'destructive';
@@ -7,17 +8,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', className, ...props }) => {
-  const baseClasses = 'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
   const variantClasses = {
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+    primary: styles.button.primary,
+    secondary: styles.button.secondary,
+    destructive: styles.button.destructive,
   };
 
-  const combinedClasses = `${baseClasses} ${variantClasses[variant]} px-4 py-2 ${className || ''}`;
-
   return (
-    <button className={combinedClasses} {...props}>
+    <button className={cx(styles.button.base, variantClasses[variant], className)} {...props}>
       {children}
     </button>
   );

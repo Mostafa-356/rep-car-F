@@ -9,6 +9,8 @@ import { NotificationType } from '../types';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SkeletonLoader from '../components/SkeletonLoader';
 import { marked } from 'marked';
+import PageHeader from '../components/PageHeader';
+import { styles } from '../styles';
 
 const FindShops: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -73,14 +75,15 @@ const FindShops: React.FC = () => {
   }, [query, location, addNotification]);
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">Find Local Shops</h1>
-      <p className="text-gray-600 mb-8">
-        Search for nearby shops. This feature requires location access to work correctly.
-      </p>
-      <Card className="mb-8">
+    <div className={styles.page}>
+      <PageHeader
+        eyebrow="Local network"
+        title="Find a trusted shop nearby."
+        description="Search for nearby repair shops, dealerships, and part stores. Location access is required."
+      />
+      <Card>
         <CardContent>
-          <form onSubmit={handleSubmit} className="flex gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
             <Input
               placeholder="e.g., Tire shop, BMW mechanic"
               value={query}
@@ -88,12 +91,12 @@ const FindShops: React.FC = () => {
               disabled={isLoading || !location}
               className="flex-grow"
             />
-            <Button type="submit" disabled={isLoading || !location}>
+            <Button type="submit" disabled={isLoading || !location} className="w-full sm:w-auto">
               {isLoading ? <LoadingSpinner /> : 'Search Nearby'}
             </Button>
           </form>
-           {locationError && <p className="text-red-500 text-sm mt-2">{locationError}</p>}
-           {!location && !locationError && <p className="text-yellow-600 text-sm mt-2">Getting your location...</p>}
+            {locationError && <p className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{locationError}</p>}
+            {!location && !locationError && <p className="mt-3 text-sm text-muted-foreground">Getting your location...</p>}
         </CardContent>
       </Card>
 
@@ -114,13 +117,13 @@ const FindShops: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div
-              className="prose max-w-none mb-6"
+              className={`${styles.prose} mb-6`}
               dangerouslySetInnerHTML={{ __html: result.text }}
             />
             {result.sources.length > 0 && (
                 <div>
-                    <h4 className="font-semibold text-lg text-gray-800 mb-2 border-t pt-4">Places on Google Maps</h4>
-                    <ul className="list-disc list-inside space-y-2">
+                    <h4 className="border-t border-border pt-5 text-sm font-semibold uppercase tracking-[0.1em] text-muted-foreground">Places on Google Maps</h4>
+                    <ul className="mt-3 space-y-2">
                         {result.sources.map((chunk, index) => (
                              chunk.maps && (
                                 <li key={index}>
@@ -128,7 +131,7 @@ const FindShops: React.FC = () => {
                                         href={chunk.maps.uri}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline"
+                                        className="text-sm font-medium text-primary hover:underline"
                                     >
                                         {chunk.maps.title}
                                     </a>

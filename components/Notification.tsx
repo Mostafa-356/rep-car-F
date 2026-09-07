@@ -2,6 +2,7 @@
 import React from 'react';
 import { NotificationType } from '../types';
 import { ICONS } from '../constants';
+import { cx } from '../styles';
 
 interface NotificationProps {
   message: string;
@@ -10,17 +11,17 @@ interface NotificationProps {
 }
 
 const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) => {
-  const baseClasses = 'relative w-full max-w-sm p-4 pr-10 overflow-hidden rounded-lg shadow-lg';
+  const baseClasses = 'relative w-full max-w-sm overflow-hidden rounded-2xl border p-4 pr-10 shadow-[0_14px_32px_rgba(23,23,23,0.12)]';
   const typeClasses = {
-    [NotificationType.Success]: 'bg-green-500 text-white',
-    [NotificationType.Error]: 'bg-red-500 text-white',
-    [NotificationType.Info]: 'bg-blue-500 text-white',
+    [NotificationType.Success]: 'border-emerald-200 bg-emerald-50 text-emerald-900',
+    [NotificationType.Error]: 'border-red-200 bg-red-50 text-red-900',
+    [NotificationType.Info]: 'border-border bg-card text-foreground',
   };
 
   return (
-    <div className={`${baseClasses} ${typeClasses[type]}`}>
-      <p className="text-sm font-medium">{message}</p>
-      <button onClick={onClose} className="absolute top-1/2 right-2.5 -translate-y-1/2 text-white/70 hover:text-white">
+    <div className={cx(baseClasses, typeClasses[type])}>
+      <p className="text-sm font-medium leading-5">{message}</p>
+      <button onClick={onClose} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-current/50 transition hover:text-current">
         <span className="sr-only">Close</span>
         {ICONS.close}
       </button>

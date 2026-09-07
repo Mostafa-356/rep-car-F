@@ -21,7 +21,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [isDark]);
 
   const toggleTheme = useCallback(() => setIsDark((current) => !current), []);
-  const currentSection = getNavigationItem(location.pathname).label;
+  const currentSection = getNavigationItem(location.pathname)?.label ?? 'Page not found';
 
   return (
     <div className="app-shell flex min-h-screen">

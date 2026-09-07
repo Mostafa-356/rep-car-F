@@ -61,7 +61,7 @@ export const profileNavigationItem: NavigationItem = {
   icon: ICONS.car,
 };
 
-export const getNavigationItem = (pathname: string): NavigationItem =>
+export const getNavigationItem = (pathname: string): NavigationItem | undefined =>
   pathname === profileNavigationItem.to
     ? profileNavigationItem
-    : navigationItems.find((item) => item.to === pathname) ?? navigationItems[0];
+    : navigationItems.find((item) => item.to === pathname);

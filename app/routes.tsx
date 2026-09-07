@@ -7,6 +7,7 @@ import DIYGuides from '../pages/DIYGuides';
 import FindParts from '../pages/FindParts';
 import FindShops from '../pages/FindShops';
 import Profile from '../pages/Profile';
+import NotFound from '../pages/NotFound';
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -17,7 +18,7 @@ const AppRoutes: React.FC = () => (
     <Route path="/parts" element={<FindParts />} />
     <Route path="/shops" element={<FindShops />} />
     <Route path="/profile" element={<Profile />} />
-    <Route path="*" element={<Dashboard />} />
+    <Route path="*" element={<NotFound />} />
   </Routes>
 );
 

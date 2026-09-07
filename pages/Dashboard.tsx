@@ -6,39 +6,16 @@ import { ICONS } from '../constants';
 import PageHeader from '../components/PageHeader';
 import Button from '../components/Button';
 import { styles } from '../styles';
+import { navigationItems } from '../app/navigation';
 
-const features = [
-    {
-        title: 'AI Diagnostics',
-        description: 'Describe your car\'s issue, upload a photo, and get instant diagnostic help.',
-        link: '/diagnostics',
-        icon: ICONS.diagnostics,
-    },
-    {
-        title: 'Maintenance Schedules',
-        description: 'Generate a personalized maintenance schedule for your vehicle.',
-        link: '/schedule',
-        icon: ICONS.schedule,
-    },
-    {
-        title: 'DIY Repair Guides',
-        description: 'Find step-by-step guides for common repairs and maintenance tasks.',
-        link: '/guides',
-        icon: ICONS.guides,
-    },
-    {
-        title: 'Find Parts',
-        description: 'Search for up-to-date car parts information and purchasing options online.',
-        link: '/parts',
-        icon: ICONS.parts,
-    },
-    {
-        title: 'Find Local Shops',
-        description: 'Locate nearby repair shops, dealerships, and part stores using your location.',
-        link: '/shops',
-        icon: ICONS.shops,
-    }
-];
+const features = navigationItems
+  .filter((item) => item.to !== '/')
+  .map((item) => ({
+    title: item.cardTitle ?? item.label,
+    description: item.cardDescription ?? '',
+    link: item.to,
+    icon: item.icon,
+  }));
 
 const Dashboard: React.FC = () => {
   return (

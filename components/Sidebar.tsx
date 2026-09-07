@@ -1,17 +1,9 @@
 
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { navigationItems } from '../app/navigation';
 import { ICONS } from '../constants';
 import { cx } from '../styles';
-
-const navigationLinks = [
-  { to: '/', icon: ICONS.dashboard, label: 'Dashboard' },
-  { to: '/diagnostics', icon: ICONS.diagnostics, label: 'Diagnostics' },
-  { to: '/schedule', icon: ICONS.schedule, label: 'Maintenance' },
-  { to: '/guides', icon: ICONS.guides, label: 'DIY Guides' },
-  { to: '/parts', icon: ICONS.parts, label: 'Find Parts' },
-  { to: '/shops', icon: ICONS.shops, label: 'Find Shops' },
-];
 
 interface SidebarProps {
     mobileOpen: boolean;
@@ -35,7 +27,7 @@ const SidebarContent: React.FC<{ onNavigate?: () => void }> = ({ onNavigate }) =
             <div className="mt-9 flex min-h-[28rem] flex-1 flex-col justify-between sm:mt-12">
                 <nav>
                     <p className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">Workspace</p>
-                    {navigationLinks.map((link) => (
+                    {navigationItems.map((link) => (
                         <NavLink
                             key={link.to}
                             to={link.to}

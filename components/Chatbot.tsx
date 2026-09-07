@@ -1,35 +1,28 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI, Chat } from "@google/genai";
 import { ICONS } from '../constants';
-import { ChatMessage } from '../types';
+import { ChatMessage, ChatSession } from '../types';
 import { marked } from 'marked';
 import LoadingSpinner from './LoadingSpinner';
 import { cx, styles } from '../styles';
+import { createChatSession } from '../features/ai/api/geminiService';
 
 const Chatbot: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const chatRef = useRef<Chat | null>(null);
+    const chatRef = useRef<ChatSession | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
-
-        if (!apiKey) {
+        const chatSession = createChatSession();
+        if (!chatSession) {
             setMessages([{ role: 'model', text: 'The AI assistant is currently unavailable because Gemini is not configured.' }]);
             return;
         }
 
-        const ai = new GoogleGenAI({ apiKey });
-        chatRef.current = ai.chats.create({
-            model: 'gemini-2.5-flash-lite',
-            config: {
-                systemInstruction: 'You are a friendly and helpful car maintenance assistant chatbot. Your responses should be concise and formatted in markdown.',
-            },
-        });
+        chatRef.current = chatSession;
         setMessages([{ role: 'model', text: 'Hello! How can I help you with your car today?' }]);
     }, []);
 
@@ -54,7 +47,7 @@ const Chatbot: React.FC = () => {
         setIsLoading(true);
 
         try {
-            const stream = await chatRef.current.sendMessageStream({ message: currentInput });
+            const stream = chatRef.current.sendMessageStream(currentInput);
             
             let modelResponse = '';
             setMessages(prev => [...prev, { role: 'model', text: '...' }]);

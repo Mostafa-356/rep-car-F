@@ -6,6 +6,7 @@ import ScrollToTopButton from './ScrollToTopButton';
 import Chatbot from './Chatbot';
 import { styles } from '../styles';
 import ThemeToggle from './ThemeToggle';
+import { getNavigationItem } from '../app/navigation';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
@@ -19,14 +20,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [isDark]);
 
   const toggleTheme = useCallback(() => setIsDark((current) => !current), []);
-  const currentSection = {
-    '/': 'Dashboard',
-    '/diagnostics': 'Diagnostics',
-    '/schedule': 'Maintenance',
-    '/guides': 'DIY Guides',
-    '/parts': 'Find Parts',
-    '/shops': 'Find Shops',
-  }[location.pathname] ?? 'Workspace';
+  const currentSection = getNavigationItem(location.pathname).label;
 
   return (
     <div className="app-shell flex min-h-screen">

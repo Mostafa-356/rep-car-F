@@ -1,6 +1,6 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import ScrollToTopButton from './ScrollToTopButton';
 import Chatbot from './Chatbot';
@@ -10,6 +10,7 @@ import { getNavigationItem } from '../app/navigation';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
@@ -53,7 +54,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
               AI services ready
             </div>
-            <button type="button" className="group flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-1.5 pr-3 transition hover:border-primary/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20" aria-label="Open profile">
+            <button
+              type="button"
+              onClick={() => navigate('/profile')}
+              className="group flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-1.5 pr-3 transition hover:border-primary/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+              aria-label="Open profile"
+            >
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-xs font-bold text-background">AR</span>
               <span className="hidden text-left sm:block">
                 <span className="block text-xs font-semibold text-foreground">My profile</span>

@@ -54,5 +54,14 @@ export const navigationItems: NavigationItem[] = [
   },
 ];
 
+export const profileNavigationItem: NavigationItem = {
+  to: '/profile',
+  label: 'Profile',
+  eyebrow: 'Your account',
+  icon: ICONS.car,
+};
+
 export const getNavigationItem = (pathname: string): NavigationItem =>
-  navigationItems.find((item) => item.to === pathname) ?? navigationItems[0];
+  pathname === profileNavigationItem.to
+    ? profileNavigationItem
+    : navigationItems.find((item) => item.to === pathname) ?? navigationItems[0];

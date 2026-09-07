@@ -2,6 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ICONS } from '../constants';
+import { cx } from '../styles';
 
 const navigationLinks = [
   { to: '/', icon: ICONS.dashboard, label: 'Dashboard' },
@@ -13,31 +14,42 @@ const navigationLinks = [
 ];
 
 const Sidebar: React.FC = () => {
-    const linkClasses = "flex items-center px-4 py-2.5 text-gray-400 transition-colors duration-200 transform rounded-lg hover:bg-gray-700";
-    const activeLinkClasses = "bg-gray-700 text-white";
+    const linkClasses = "group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-white/55 transition hover:bg-white/10 hover:text-white";
+    const activeLinkClasses = "bg-primary text-white shadow-[0_10px_24px_rgba(255,105,77,0.2)] hover:bg-primary hover:text-white";
 
     return (
-        <div className="flex flex-col w-64 h-screen px-4 py-8 bg-gray-800 border-r rtl:border-r-0 rtl:border-l">
-            <div className="flex items-center space-x-2 px-4">
-                <span className="text-2xl text-white">{ICONS.car}</span>
-                <h2 className="text-xl font-semibold text-white">Auto AI</h2>
+        <aside className="sticky top-0 hidden h-screen w-[260px] shrink-0 flex-col border-r border-white/10 bg-[#171717] px-5 py-6 text-white lg:flex">
+            <div className="flex items-center gap-3 px-2">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">{ICONS.car}</span>
+                <div>
+                    <h2 className="text-base font-semibold tracking-[-0.02em]">Auto AI</h2>
+                    <p className="text-[11px] text-white/45">Vehicle intelligence</p>
+                </div>
             </div>
 
-            <div className="flex flex-col justify-between flex-1 mt-6">
+            <div className="mt-12 flex flex-1 flex-col justify-between">
                 <nav>
+                    <p className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30">Workspace</p>
                     {navigationLinks.map((link) => (
                         <NavLink
                             key={link.to}
                             to={link.to}
-                            className={({ isActive }) => `${linkClasses} ${isActive ? activeLinkClasses : ''}`}
+                            className={({ isActive }) => cx(linkClasses, isActive && activeLinkClasses)}
                         >
-                            {link.icon}
-                            <span className="mx-4 font-medium">{link.label}</span>
+                            <span className="flex h-5 w-5 items-center justify-center [&>svg]:h-[18px] [&>svg]:w-[18px]">{link.icon}</span>
+                            <span>{link.label}</span>
                         </NavLink>
                     ))}
                 </nav>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs font-semibold">Need a second opinion?</p>
+                    <p className="mt-1 text-xs leading-5 text-white/45">Ask the AI assistant about your next repair.</p>
+                    <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-primary">
+                        <span className="h-2 w-2 rounded-full bg-primary" /> Assistant online
+                    </div>
+                </div>
             </div>
-        </div>
+        </aside>
     );
 };
 

@@ -27,7 +27,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   return (
     <NotificationContext.Provider value={{ addNotification }}>
       {children}
-      <div className="fixed top-5 right-5 z-50 flex flex-col gap-2">
+      <div className="fixed right-5 top-5 z-50 flex flex-col gap-3">
         {notifications.map(notification => (
           <Notification
             key={notification.id}

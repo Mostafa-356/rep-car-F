@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ICONS } from '../constants';
+import { cx, styles } from '../styles';
 
 const ScrollToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,9 +37,8 @@ const ScrollToTopButton: React.FC = () => {
     <button
       type="button"
       onClick={scrollToTop}
-      className={`fixed bottom-5 right-5 z-40 p-3 rounded-full bg-primary text-primary-foreground shadow-lg transition-opacity duration-300 hover:bg-primary/90 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
+      className={cx('fixed bottom-5 right-24 z-40 flex h-11 w-11 items-center justify-center rounded-xl bg-foreground text-white shadow-lg transition hover:-translate-y-1 hover:bg-foreground/90', isVisible ? 'opacity-100' : 'pointer-events-none opacity-0')}
+      aria-label="Scroll to top"
     >
       {ICONS.chevronUp}
     </button>

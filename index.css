@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --color-border: #e7e7e2;
+  --color-input: #e7e7e2;
+  --color-ring: #ff694d;
+  --color-background: #f7f7f5;
+  --color-foreground: #151515;
+  --color-primary: #ff694d;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #ecece9;
+  --color-secondary-foreground: #151515;
+  --color-destructive: #dc5547;
+  --color-destructive-foreground: #ffffff;
+  --color-muted: #ecece9;
+  --color-muted-foreground: #72726d;
+  --color-accent: #fff0ec;
+  --color-accent-foreground: #151515;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #151515;
+  --color-card: #ffffff;
+  --color-card-foreground: #151515;
+}
+
+:root {
+  font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #f7f7f5;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: #f7f7f5;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(255, 105, 77, 0.22);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: #d8d8d3;
+  background-clip: padding-box;
+}
+
+.app-shell {
+  background:
+    radial-gradient(circle at 86% 0%, rgba(255, 105, 77, 0.08), transparent 28rem),
+    #f7f7f5;
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(21, 21, 21, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+}

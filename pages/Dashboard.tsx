@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="motion-stagger grid grid-cols-1 gap-4 sm:grid-cols-3">
         {[
            ['Vehicle status', 'Ready for the road', 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'],
            ['Next service', '1,240 mi away', 'bg-orange-500/10 text-orange-700 dark:text-orange-300'],
@@ -70,10 +70,10 @@ const Dashboard: React.FC = () => {
         <span className="hidden text-sm text-muted-foreground sm:block">5 tools available</span>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="motion-stagger grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
             <Link to={feature.link} key={feature.title} className="group">
-                <Card className="h-full transition duration-300 group-hover:-translate-y-1 group-hover:border-primary/30 group-hover:shadow-[0_18px_40px_rgba(255,105,77,0.1)]">
+                <Card className="h-full transition-[transform,box-shadow,border-color] duration-300 group-hover:-translate-y-1 group-hover:border-primary/30 group-hover:shadow-[0_18px_40px_rgba(255,105,77,0.1)]">
                     <CardHeader className="flex-row items-start justify-between">
                          <div className={styles.iconBox}>{feature.icon}</div>
                          <span className="text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary">↗</span>

@@ -73,7 +73,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isNavigationOpen = false }) => {
     };
     
     const ChatWindow = () => (
-        <div className="fixed bottom-24 right-4 z-50 flex h-[min(34rem,calc(100vh-8rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_24px_70px_rgba(23,23,23,0.18)] sm:right-6">
+        <div className="motion-fade-in fixed bottom-24 right-4 z-50 flex h-[min(34rem,calc(100vh-8rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_24px_70px_rgba(23,23,23,0.18)] sm:right-6">
             <header className="flex items-center justify-between bg-[#171717] p-5 text-white">
                 <div>
                     <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">Always on call</p>
@@ -130,7 +130,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isNavigationOpen = false }) => {
                 <button
                   type="button"
                   onClick={() => setIsOpen(!isOpen)}
-                  className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,105,77,0.3)] transition-transform duration-300 hover:-translate-y-1"
+                  className="motion-fab fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,105,77,0.3)]"
                   aria-label="Toggle chat"
                 >
                   {isOpen ? ICONS.close : ICONS.chat}

@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { navigationItems } from '../app/navigation';
 import { ICONS } from '../constants';
@@ -78,6 +78,18 @@ const SidebarContent: React.FC<{ onNavigate?: () => void; mobile?: boolean }> = 
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
+    const [isMobileNavMounted, setIsMobileNavMounted] = useState(mobileOpen);
+
+    useEffect(() => {
+        if (mobileOpen) {
+            setIsMobileNavMounted(true);
+            return;
+        }
+
+        const timeoutId = window.setTimeout(() => setIsMobileNavMounted(false), 240);
+        return () => window.clearTimeout(timeoutId);
+    }, [mobileOpen]);
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Escape') onClose();
@@ -97,10 +109,10 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
         <aside className="sidebar-surface sticky top-0 hidden h-screen w-[260px] shrink-0 border-r sidebar-border lg:flex">
             <SidebarContent />
         </aside>
-        {mobileOpen && (
-            <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-                <button type="button" className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" onClick={onClose} aria-label="Close navigation" />
-                <aside className="sidebar-surface absolute bottom-0 left-0 top-0 z-10 w-full border-r sidebar-border shadow-[20px_0_50px_rgba(0,0,0,0.25)]">
+        {isMobileNavMounted && (
+            <div className={cx('motion-backdrop fixed inset-0 z-50 lg:hidden', mobileOpen && 'is-open')} role="dialog" aria-modal="true" aria-label="Mobile navigation">
+                <button type="button" className="absolute inset-0 bg-foreground/40" onClick={onClose} aria-label="Close navigation" />
+                <aside className={cx('motion-drawer sidebar-surface absolute bottom-0 left-0 top-0 z-10 w-full border-r sidebar-border shadow-[20px_0_50px_rgba(0,0,0,0.25)]', mobileOpen && 'is-open')}>
                     <SidebarContent mobile onNavigate={onClose} />
                 </aside>
             </div>

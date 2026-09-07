@@ -176,3 +176,111 @@ textarea {
   background-image: radial-gradient(color-mix(in srgb, var(--app-foreground) 10%, transparent) 1px, transparent 1px);
   background-size: 18px 18px;
 }
+
+@keyframes motion-page-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes motion-item-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes motion-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.motion-page {
+  animation: motion-page-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top center;
+}
+
+.motion-stagger > * {
+  animation: motion-item-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-stagger > :nth-child(2) {
+  animation-delay: 45ms;
+}
+
+.motion-stagger > :nth-child(3) {
+  animation-delay: 90ms;
+}
+
+.motion-stagger > :nth-child(4) {
+  animation-delay: 135ms;
+}
+
+.motion-stagger > :nth-child(5) {
+  animation-delay: 180ms;
+}
+
+.motion-backdrop {
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+  will-change: opacity;
+}
+
+.motion-backdrop.is-open {
+  opacity: 1;
+}
+
+.motion-drawer {
+  transform: translate3d(-100%, 0, 0);
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.motion-drawer.is-open {
+  transform: translate3d(0, 0, 0);
+}
+
+.motion-fade-in {
+  animation: motion-fade-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-fab {
+  transition: transform 180ms ease-out, box-shadow 180ms ease-out, background-color 180ms ease-out;
+}
+
+.motion-fab:hover {
+  transform: translate3d(0, -4px, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

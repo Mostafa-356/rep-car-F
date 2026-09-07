@@ -70,7 +70,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </header>
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
           <div className={`${styles.page} mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-8 sm:py-10 lg:px-10`}>
-            {children}
+            <div key={location.pathname} className="motion-page">
+              {children}
+            </div>
           </div>
         </main>
       </div>
